@@ -17,8 +17,9 @@ WORKDIR /www
 
 COPY ./files/readthedocs.org-master.tar.gz ./readthedocs.org-master.tar.gz
 COPY ./files/tasksrecommonmark.patch ./tasksrecommonmark.patch
-RUN tar -zxvf readthedocs.org-master.tar.gz
-RUN mv ./readthedocs.org-master ./readthedocs.org
+RUN tar -zxvf readthedocs.org-master.tar.gz && \
+    rm readthedocs.org-master.tar.gz && \
+    mv ./readthedocs.org-master ./readthedocs.org
 
 WORKDIR /www/readthedocs.org
 
@@ -67,7 +68,8 @@ ENV RTD_PRODUCTION_DOMAIN 'localhost:8000'
 
 # Set up nginx
 COPY ./files/readthedocs.nginx.conf /etc/nginx/sites-available/readthedocs
-RUN ln -s /etc/nginx/sites-available/readthedocs /etc/nginx/sites-enabled/readthedocs
+RUN ln -s /etc/nginx/sites-available/readthedocs /etc/nginx/sites-enabled/readthedocs && \
+    rm /etc/nginx/sites-enabled/default
 
 # Clean Up Apt
 
