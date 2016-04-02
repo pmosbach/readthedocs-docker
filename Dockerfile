@@ -24,9 +24,8 @@ RUN tar -zxvf readthedocs.org-master.tar.gz && \
 WORKDIR /www/readthedocs.org
 
 
-# Upgrade pip and install the required Python packages
-RUN pip install --upgrade pip && \
-    pip install -r requirements.txt
+# Install the required Python packages
+RUN pip install -r requirements.txt
 
 # Install a higher version of requests to fix an SSL issue
 RUN pip install requests==2.6.0
@@ -73,7 +72,7 @@ RUN ln -s /etc/nginx/sites-available/readthedocs /etc/nginx/sites-enabled/readth
 
 RUN apt-get autoremove -y
 
-ENV PORT=8000
+ENV PORT 8000
 EXPOSE 8000
 
 CMD ["supervisord"]
