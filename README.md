@@ -20,7 +20,7 @@ This image also removes the infamous account email verification on user sign-up.
 
 ### Run the Container
 ```
-docker run -d -it -p 8000:8000 -e "RTD_PRODUCTION_DOMAIN=my_domain.com:8000" --name readthedocs vassilvk/readthedocs
+docker run -d -it -p 8000:80 -e "RTD_PRODUCTION_DOMAIN=my_domain.com:8000" --name readthedocs vassilvk/readthedocs
 ```
 
 The above example starts the container with the assumption that it will be accessed at http://my_domain.com:8000.
@@ -55,7 +55,7 @@ docker inspect readthedocs
 Once you do that, you can delete the container: `docker rm readthedocs`.
 Now you can start the container by mounting the host-provided folder like this:
 ```
-docker run -d -it -p 8000:8000 -e "RTD_PRODUCTION_DOMAIN=my_domain.com:8000" -v ~/readthedocs.org:/www/readthedocs.org --name readthedocs vassilvk/readthedocs
+docker run -d -it -p 8000:80 -e "RTD_PRODUCTION_DOMAIN=my_domain.com:8000" -v ~/readthedocs.org:/www/readthedocs.org --name readthedocs vassilvk/readthedocs
 ```
 
 ### Access the Application
