@@ -73,6 +73,6 @@ RUN ln -s /etc/nginx/sites-available/readthedocs /etc/nginx/sites-enabled/readth
 RUN apt-get autoremove -y
 
 ENV PORT 8000
-EXPOSE 8000
+#EXPOSE 8000
 
 CMD ["supervisord"]
