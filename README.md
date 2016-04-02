@@ -26,6 +26,8 @@ docker run -d -it -p 8000:80 -e "RTD_PRODUCTION_DOMAIN=my_domain.com:8000" --nam
 The above example starts the container with the assumption that it will be accessed at http://my_domain.com:8000.
 Change the port mappings and environment variable `RTD_PRODUCTION_DOMAIN` to reflect your setup.
 
+TODO Use of `TZ`
+
 You need to run the container only once. After that you only need stop and start it:
 ```
 docker stop readthedocs
