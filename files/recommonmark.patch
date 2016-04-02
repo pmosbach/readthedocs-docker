@@ -1,0 +1,13 @@
+diff --git a/readthedocs/doc_builder/python_environments.py b/readthedocs/doc_builder/python_environments.py
+index 0e321a7..8748102 100644
+--- a/readthedocs/doc_builder/python_environments.py
++++ b/readthedocs/doc_builder/python_environments.py
+@@ -109,7 +109,7 @@ class Virtualenv(PythonEnvironment):
+             'sphinx-rtd-theme==0.1.9',
+             'alabaster>=0.7,<0.8,!=0.7.5',
+             'commonmark==0.5.4',
+-            'recommonmark==0.1.1',
++            'recommonmark==0.4.0',
+         ]
+ 
+         cmd = [

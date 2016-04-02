@@ -32,10 +32,10 @@ RUN pip install requests==2.6.0
 
 # Override the default settings
 COPY ./files/local_settings.py ./readthedocs/settings/local_settings.py
-COPY ./files/tasksrecommonmark.patch ./tasksrecommonmark.patch
+COPY ./files/recommonmark.patch ./recommonmark.patch
 
 # Patch tasks.py to use newer recommonmark
-RUN patch ./readthedocs/projects/tasks.py < ./tasksrecommonmark.patch
+RUN patch ./readthedocs/doc_builder/python_environments.py < ./recommonmark.patch
 
 # Deploy the database
 RUN python ./manage.py migrate
