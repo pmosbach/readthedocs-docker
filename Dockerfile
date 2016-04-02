@@ -44,15 +44,13 @@ RUN python ./manage.py migrate
 # Create a super user
 RUN echo "from django.contrib.auth.models import User; User.objects.create_superuser('admin', 'admin@localhost', 'admin')" | python ./manage.py shell
 
-# Load test data
-RUN python ./manage.py loaddata test_data
-
-# Copy static files
-RUN python ./manage.py collectstatic --noinput
+# Load test data and copy static files
+RUN python ./manage.py loaddata test_data && \
+    python ./manage.py collectstatic --noinput
 
 # Install gunicorn web server
-RUN pip install gunicorn
-RUN pip install setproctitle
+RUN pip install gunicorn && \
+    pip install setproctitle
 
 # Set up the gunicorn startup script
 COPY ./files/gunicorn_start.sh ./gunicorn_start.sh
@@ -74,5 +72,7 @@ RUN ln -s /etc/nginx/sites-available/readthedocs /etc/nginx/sites-enabled/readth
 # Clean Up Apt
 
 RUN apt-get autoremove -y
+
+EXPOSE 8000
 
 CMD ["supervisord"]
