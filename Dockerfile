@@ -61,7 +61,7 @@ ADD files/supervisord.conf /etc/supervisord.conf
 
 VOLUME /www/readthedocs.org
 
-ENV RTD_PRODUCTION_DOMAIN 'localhost:8000'
+ENV RTD_PRODUCTION_DOMAIN 'localhost'
 
 # Set up nginx
 COPY ./files/readthedocs.nginx.conf /etc/nginx/sites-available/readthedocs
@@ -72,7 +72,6 @@ RUN ln -s /etc/nginx/sites-available/readthedocs /etc/nginx/sites-enabled/readth
 
 RUN apt-get autoremove -y
 
-ENV PORT 8000
-#EXPOSE 8000
+EXPOSE 80
 
 CMD ["supervisord"]
