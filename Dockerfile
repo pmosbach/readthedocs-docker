@@ -16,13 +16,11 @@ RUN mkdir /www
 WORKDIR /www
 
 COPY ./files/readthedocs.org-master.tar.gz ./readthedocs.org-master.tar.gz
-COPY ./files/tasksrecommonmark.patch ./tasksrecommonmark.patch
 RUN tar -zxvf readthedocs.org-master.tar.gz && \
     rm readthedocs.org-master.tar.gz && \
     mv ./readthedocs.org-master ./readthedocs.org
 
 WORKDIR /www/readthedocs.org
-
 
 # Install the required Python packages
 RUN pip install -r requirements.txt
@@ -33,9 +31,11 @@ RUN pip install requests==2.6.0
 # Override the default settings
 COPY ./files/local_settings.py ./readthedocs/settings/local_settings.py
 COPY ./files/recommonmark.patch ./recommonmark.patch
+COPY ./files/mkdocs.patch ./mkdocs.patch
 
-# Patch tasks.py to use newer recommonmark
-RUN patch ./readthedocs/doc_builder/python_environments.py < ./recommonmark.patch
+# Patch python_environments.py to use newer recommonmark and remove hard coded URL
+RUN patch ./readthedocs/doc_builder/python_environments.py < ./recommonmark.patch && \
+    patch ./readthedocs/doc_builder/backends/mkdocs.py < ./mkdocs.patch
 
 # Deploy the database
 RUN python ./manage.py migrate
@@ -57,7 +57,7 @@ RUN chmod u+x ./gunicorn_start.sh
 
 # Install supervisord
 RUN pip install supervisor
-ADD files/supervisord.conf /etc/supervisord.conf
+COPY files/supervisord.conf /etc/supervisord.conf
 
 VOLUME /www/readthedocs.org
 
